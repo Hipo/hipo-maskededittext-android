@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="MaskedEditText">
+        <attr name="maskType" format="enum">
+            <enum name="date" value="0" />
+            <enum name="phone" value="1" />
+            <enum name="ssn" value="2" />
+            <enum name="custom" value="3" />
+        </attr>
+        <attr name="maskPattern" format="string" />
+    </declare-styleable>
+
+</resources>
