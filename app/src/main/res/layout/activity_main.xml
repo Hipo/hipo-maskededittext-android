@@ -11,18 +11,18 @@
         android:id="@+id/phoneEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="(xxx) xxx-xxxx"
+        android:hint="@string/masked_edit_text_hint"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:maskType="phone" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/parsedTextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="get parsed text"
+        android:text="@string/get_parsed_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/rawTextButton"
         app:layout_constraintStart_toStartOf="parent" />
@@ -31,7 +31,7 @@
         android:id="@+id/rawTextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="get raw text"
+        android:text="@string/get_raw_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/parsedTextButton" />
