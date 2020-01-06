@@ -1,5 +1,7 @@
 # Masked Edit Text
 
+```implementation 'com.hipo.maskededittext:maskededittext:1.0.0'```
+
 Simple Phone, Date and SSN masker.
 
 For now, there are 3 options;
