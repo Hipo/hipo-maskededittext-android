@@ -16,7 +16,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:maskType="phone" />
+        app:maskPattern="#++###!$#3312s#"
+        app:returnPattern="#---#####"
+        app:maskType="custom" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/parsedTextButton"

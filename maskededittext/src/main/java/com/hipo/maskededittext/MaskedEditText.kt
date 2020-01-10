@@ -6,6 +6,7 @@ import android.text.InputType
 import android.text.TextWatcher
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatEditText
+import com.hipo.maskededittext.Masker.Companion.POUND
 import kotlin.properties.Delegates
 
 class MaskedEditText : AppCompatEditText {
@@ -49,21 +50,11 @@ class MaskedEditText : AppCompatEditText {
 
     private fun setMasker(mask: Mask) {
         if (mask is UnselectedMask) {
-            throw Exception("${MaskedEditText::class.java.simpleName}: maskType must be selected")
+            throw Exception("${LOG_TAG}: ${context.getString(R.string.exception_unselected_mask)}")
         }
         masker = when (mask) {
             is CustomMask -> {
-                when {
-                    maskPattern.contains(Masker.POUND).not() -> {
-                        throw Exception("${MaskedEditText::class.java.simpleName}: Custom mask must contain #")
-                    }
-                    returnMaskPattern.contains(Masker.POUND).not() -> {
-                        throw Exception("${MaskedEditText::class.java.simpleName}: Custom mask return type must contain #")
-                    }
-                    else -> {
-                        Masker(CustomMask(maskPattern, returnMaskPattern), ::setEditTextWithoutTriggerListener)
-                    }
-                }
+                handleCustomMask(mask)
             }
             else -> Masker(mask, ::setEditTextWithoutTriggerListener)
         }
@@ -102,8 +93,10 @@ class MaskedEditText : AppCompatEditText {
     private fun initAttributes(attrs: AttributeSet, defStyle: Int = -1) {
         with(context.obtainStyledAttributes(attrs, R.styleable.MaskedEditText, defStyle, 0)) {
             maskPattern = getString(R.styleable.MaskedEditText_maskPattern).orEmpty()
-            maskType =
-                Mask.Type.values()[getInt(R.styleable.MaskedEditText_maskType, Mask.Type.UNSELECTED.ordinal)].create()
+            returnMaskPattern = getString(R.styleable.MaskedEditText_returnPattern).orEmpty()
+            maskType = Mask.Type.values()[
+                    getInt(R.styleable.MaskedEditText_maskType, Mask.Type.UNSELECTED.ordinal)
+            ].create(maskPattern, returnMaskPattern)
         }
     }
 
@@ -116,5 +109,9 @@ class MaskedEditText : AppCompatEditText {
             }
         }
         addTextChangedListener(textWatcher)
+    }
+
+    companion object {
+        private val LOG_TAG = MaskedEditText::class.java.simpleName
     }
 }

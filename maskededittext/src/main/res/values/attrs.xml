@@ -9,6 +9,7 @@
             <enum name="custom" value="3" />
         </attr>
         <attr name="maskPattern" format="string" />
+        <attr name="returnPattern" format="string" />
     </declare-styleable>
 
 </resources>
