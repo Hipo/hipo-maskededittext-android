@@ -69,6 +69,23 @@ class MaskedEditText : AppCompatEditText {
         }
     }
 
+    private fun handleCustomMask(mask: Mask): Masker {
+        return when {
+            maskPattern.contains(POUND).not() -> {
+                throw Exception("$LOG_TAG: ${context.getString(R.string.exception_mask_pound)}")
+            }
+            returnMaskPattern.contains(POUND).not() -> {
+                throw Exception("$LOG_TAG: ${context.getString(R.string.exception_return_pound)}")
+            }
+            maskPattern.count { it == POUND } != returnMaskPattern.count { it == POUND } -> {
+                throw Exception("$LOG_TAG: ${context.getString(R.string.exception_pound_count)}")
+            }
+            else -> {
+                Masker(mask, ::setEditTextWithoutTriggerListener)
+            }
+        }
+    }
+
     private fun setEditTextWithoutTriggerListener(newText: String) {
         removeTextChangedListener(textWatcher)
         onTextChangedListener?.invoke(newText)
