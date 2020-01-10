@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="exception_pound_count">POUND count must be same for maskPattern and returnMaskPattern</string>
+    <string name="exception_mask_pound">Custom mask maskPattern must contain #</string>
+    <string name="exception_return_pound">Custom mask returnType must contain #</string>
+    <string name="exception_unselected_mask">maskType must be selected</string>
+</resources>
