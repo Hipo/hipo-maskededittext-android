@@ -4,11 +4,11 @@
 
 Simple Phone, Date and SSN masker.
 
-For now, there are 3 options;
+There are 4 options;
 * Phone -> (###) ###-####
 * Date -> ####/##/##
 * SSN -> ###-##-####
-* Custom -> Not implemented yet!
+* Custom -> However you want it to be!
 
 To be able to get parsed text, input count must be the same as output count. Otherwise ```getParsedText()```returns null.
 
@@ -33,3 +33,19 @@ val parsedText = maskedEditText.getParsedText() // output = 2020-10-10
 
 val maskedText = maskedEditText.text.toString() // output = 10/10/2020
 ```
+
+### Custom Mask
+
+Define your maskPattern and returnPattern using # in XML
+
+```
+<com.hipo.maskededittext.MaskedEditText
+    ...
+    app:maskPattern="#++###!$#3312s#"
+    app:returnPattern="#---#####"
+    app:maskType="custom" />
+```
+
+To use custom mask,  you need to follow some rules;
+* maskPattern and returnPattern must be defined
+* Pound (#) count must be the same for maskPattern and returnPattern
