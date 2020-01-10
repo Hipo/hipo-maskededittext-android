@@ -48,7 +48,7 @@ ext {
     siteUrl = 'https://github.com/Hipo/hipo-maskededittext-android'    // git repo url
     gitUrl = 'https://github.com/Hipo/hipo-maskededittext-android.git' // git repo vcs url
 
-    libraryVersion = '1.0.0'      // library version
+    libraryVersion = '1.1.0'      // library version
 
     developerId = 'msinansari'                // This is your bintray username
     developerName = 'Mithat Sinan Sari'              // Developer's name
