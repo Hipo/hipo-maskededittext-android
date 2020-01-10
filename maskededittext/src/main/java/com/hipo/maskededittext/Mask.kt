@@ -5,7 +5,7 @@ abstract class Mask {
     abstract val returnPattern: String
 
     abstract fun getParsedText(maskedText: String): String?
-    abstract fun isValidToParse(filteredText: String): Boolean
+    abstract fun isValidToParse(maskedText: String): Boolean
     abstract fun filterMaskedText(maskedText: String): String
 
     enum class Type : MaskCreator {
