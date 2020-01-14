@@ -8,6 +8,7 @@ There are 4 options;
 * Phone -> (###) ###-####
 * Date -> ####/##/##
 * SSN -> ###-##-####
+* Currency -> $########
 * Custom -> However you want it to be!
 
 To be able to get parsed text, input count must be the same as output count. Otherwise ```getParsedText()```returns null.
