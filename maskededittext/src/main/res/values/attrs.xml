@@ -6,7 +6,8 @@
             <enum name="date" value="0" />
             <enum name="phone" value="1" />
             <enum name="ssn" value="2" />
-            <enum name="custom" value="3" />
+            <enum name="currency" value="3" />
+            <enum name="custom" value="4" />
         </attr>
         <attr name="maskPattern" format="string" />
         <attr name="returnPattern" format="string" />

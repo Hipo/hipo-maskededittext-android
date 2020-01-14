@@ -18,6 +18,9 @@ abstract class Mask {
         SSN {
             override fun create(maskPattern: String?, returnPattern: String?): Mask = SSNMask()
         },
+        CURRENCY {
+            override fun create(maskPattern: String?, returnPattern: String?): Mask  = CurrencyMask()
+        },
         CUSTOM {
             override fun create(maskPattern: String?, returnPattern: String?): Mask =
                 CustomMask(maskPattern.orEmpty(), returnPattern.orEmpty())

@@ -16,9 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:maskPattern="#++###!$#3312s#"
-        app:returnPattern="#---#####"
-        app:maskType="custom" />
+        app:maskType="currency" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/parsedTextButton"
