@@ -8,7 +8,8 @@ There are 4 options;
 * Phone -> (###) ###-####
 * Date -> ####/##/##
 * SSN -> ###-##-####
-* Currency -> $########
+* Currency -> $######## !!! Deprecated, Use StaticText instead !!!
+* Static Text -> $... - Now you can set static text
 * Custom -> However you want it to be!
 
 To be able to get parsed text, input count must be the same as output count. Otherwise ```getParsedText()```returns null.
@@ -45,6 +46,17 @@ Define your maskPattern and returnPattern using # in XML
     app:maskPattern="#++###!$#3312s#"
     app:returnPattern="#---#####"
     app:maskType="custom" />
+```
+
+### Static Text
+
+Define your static text with maskPattern. Defined text will not be removable by user.
+
+```
+<com.hipo.maskededittext.MaskedEditText
+    ...
+    app:maskPattern="$"
+    app:maskType="static_text" />
 ```
 
 To use custom mask,  you need to follow some rules;
