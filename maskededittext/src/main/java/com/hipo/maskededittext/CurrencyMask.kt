@@ -1,5 +1,6 @@
 package com.hipo.maskededittext
 
+@Deprecated("Use static_text and define maskPattern")
 class CurrencyMask : Mask() {
     override val maskPattern: String
         get() = "$########"
