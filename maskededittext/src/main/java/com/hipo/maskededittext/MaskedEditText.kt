@@ -24,7 +24,7 @@ class MaskedEditText : AppCompatEditText {
     private var textWatcher: TextWatcher? = null
     private var maskPattern: String = ""
     private var returnMaskPattern: String = ""
-    private var masker: Masker? = null
+    private var masker: BaseMasker? = null
     private var maskType: Mask by Delegates.observable<Mask>(UnselectedMask()) { _, _, newValue ->
         setMasker(newValue)
     }
@@ -53,9 +53,8 @@ class MaskedEditText : AppCompatEditText {
             throw Exception("${LOG_TAG}: ${context.getString(R.string.exception_unselected_mask)}")
         }
         masker = when (mask) {
-            is CustomMask -> {
-                handleCustomMask(mask)
-            }
+            is CustomMask -> handleCustomMask(mask)
+            is StaticTextMask -> handleStaticTextMask(mask)
             else -> Masker(mask, ::setEditTextWithoutTriggerListener)
         }
     }
@@ -74,6 +73,15 @@ class MaskedEditText : AppCompatEditText {
             else -> {
                 Masker(mask, ::setEditTextWithoutTriggerListener)
             }
+        }
+    }
+
+    private fun handleStaticTextMask(mask: Mask): StaticTextMasker {
+        return when {
+            maskPattern.isBlank() -> {
+                throw Exception("$LOG_TAG: ${context.getString(R.string.exception_mask_pound)}")
+            }
+            else -> StaticTextMasker(mask, ::setEditTextWithoutTriggerListener)
         }
     }
 

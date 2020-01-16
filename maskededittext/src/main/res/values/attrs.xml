@@ -8,6 +8,7 @@
             <enum name="ssn" value="2" />
             <enum name="currency" value="3" />
             <enum name="custom" value="4" />
+            <enum name="static_text" value="5" />
         </attr>
         <attr name="maskPattern" format="string" />
         <attr name="returnPattern" format="string" />

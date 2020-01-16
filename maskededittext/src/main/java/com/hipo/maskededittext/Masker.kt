@@ -3,15 +3,15 @@ package com.hipo.maskededittext
 import kotlin.properties.Delegates
 
 class Masker(
-    private val mask: Mask,
-    private val onTextMaskedListener: (String) -> Unit
-) {
+    override val mask: Mask,
+    override val onTextMaskedListener: (String) -> Unit
+) : BaseMasker {
 
     private var text: String by Delegates.observable("") { _, _, newValue ->
         onTextMaskedListener(newValue)
     }
 
-    fun onTextChanged(charSequence: CharSequence?, start: Int, count: Int, before: Int) {
+    override fun onTextChanged(charSequence: CharSequence?, start: Int, count: Int, before: Int) {
         if (charSequence == null) {
             return
         }
@@ -32,7 +32,7 @@ class Masker(
         }
     }
 
-    fun getTextWithReturnPattern(): String? {
+    override fun getTextWithReturnPattern(): String? {
         return mask.getParsedText(text)
     }
 
@@ -73,7 +73,7 @@ class Masker(
     private fun removeUpcomingMasks(charSequence: CharSequence) {
         var index = charSequence.length - 1
         var tempText = charSequence
-        while (index >= 0 && mask.maskPattern[index] != POUND) {
+        while (index >= 0 && mask.maskPattern[index] != POUND && charSequence.length > 1) {
             tempText = removeLastItem(tempText)
             text = tempText
             index--
