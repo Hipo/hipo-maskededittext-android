@@ -47,6 +47,6 @@ class UiTests {
     fun isCustomCreditCardMaskWorking() {
         val inputText = "1234123412341234"
         val expectedResult = "1234-1234-1234-1234"
-        R.id.customEditText.checkIfInputOutputMatches(inputText, expectedResult)
+        R.id.creditCardEditText.checkIfInputOutputMatches(inputText, expectedResult)
     }
 }
