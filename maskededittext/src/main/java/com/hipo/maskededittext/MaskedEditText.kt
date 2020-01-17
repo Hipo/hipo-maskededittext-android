@@ -35,7 +35,8 @@ class MaskedEditText : AppCompatEditText {
 
     var onTextChangedListener: ((String) -> Unit)? = null
 
-    init {
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
         initMaskedEditText()
     }
 
