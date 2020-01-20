@@ -5,7 +5,11 @@ import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputConnection
 import androidx.appcompat.widget.AppCompatEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.hipo.maskededittext.Masker.Companion.POUND
 import kotlin.properties.Delegates
 
@@ -31,7 +35,8 @@ class MaskedEditText : AppCompatEditText {
 
     var onTextChangedListener: ((String) -> Unit)? = null
 
-    init {
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
         initMaskedEditText()
     }
 
@@ -90,7 +95,9 @@ class MaskedEditText : AppCompatEditText {
         onTextChangedListener?.invoke(newText)
         setText(newText)
         setSelection(text?.length ?: 0)
-        addTextChangedListener(textWatcher)
+        textWatcher?.let { textWatcher ->
+            addTextChangedListener(textWatcher)
+        }
     }
 
     private fun initMaskedEditText() {
@@ -117,6 +124,43 @@ class MaskedEditText : AppCompatEditText {
             }
         }
         addTextChangedListener(textWatcher)
+    }
+
+    /**
+     *  Below 4 function which are
+     *   - getHint()
+     *   - onCreateInputConnection()
+     *   - getTextInputLayout()
+     *   - getHintFromLayout()
+     *   copied from TextInputEditText to perform same label feature.
+     */
+    override fun getHint(): CharSequence? {
+        val layoutHint = getTextInputLayout()?.hint
+        return layoutHint ?: super.getHint()
+    }
+
+    override fun onCreateInputConnection(outAttrs: EditorInfo): InputConnection? {
+        val inputConnection = super.onCreateInputConnection(outAttrs)
+        if (inputConnection != null && outAttrs.hintText == null) {
+            outAttrs.hintText = getHintFromLayout()
+        }
+        return inputConnection
+    }
+
+    private fun getTextInputLayout(): TextInputLayout? {
+        var parent = this.parent
+        while (parent is View) {
+            if (parent is TextInputLayout) {
+                return parent
+            }
+            parent = parent.getParent()
+        }
+        return null
+    }
+
+    private fun getHintFromLayout(): CharSequence? {
+        val layout = getTextInputLayout()
+        return layout?.hint
     }
 
     companion object {
