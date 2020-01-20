@@ -12,6 +12,8 @@ There are 4 options;
 * Static Text -> $... - Now you can set static text
 * Custom -> However you want it to be!
 
+** Also you can use it in a TextInputLayout!
+
 To be able to get parsed text, input count must be the same as output count. Otherwise ```getParsedText()```returns null.
 
 ![](https://github.com/Hipo/hipo-maskededittext-android/blob/master/maskededittext/src/main/res/raw/demo.gif)
