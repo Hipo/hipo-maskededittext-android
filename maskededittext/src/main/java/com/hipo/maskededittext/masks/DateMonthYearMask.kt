@@ -1,14 +1,15 @@
-package com.hipo.maskededittext
+package com.hipo.maskededittext.masks
 
-class SSNMask : Mask() {
+import com.hipo.maskededittext.Mask
+
+class DateMonthYearMask : Mask() {
     override val maskPattern: String
-        get() = "###-##-####"
+        get() = "## / ####"
     override val returnPattern: String
-        get() = "#########"
+        get() = "##-####"
 
     override fun getParsedText(maskedText: String): String? {
-        val filteredText = filterMaskedText(maskedText)
-        return if (isValidToParse(maskedText)) filteredText else null
+        return filterMaskedText(maskedText).takeIf { isValidToParse(maskedText) }
     }
 
     override fun isValidToParse(maskedText: String): Boolean {

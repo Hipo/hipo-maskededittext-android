@@ -1,4 +1,6 @@
-package com.hipo.maskededittext
+package com.hipo.maskededittext.masks
+
+import com.hipo.maskededittext.Mask
 
 class UnselectedMask : Mask() {
     override val maskPattern: String

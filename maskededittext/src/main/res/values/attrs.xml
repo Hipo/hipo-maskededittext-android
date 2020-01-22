@@ -9,6 +9,8 @@
             <enum name="currency" value="3" />
             <enum name="custom" value="4" />
             <enum name="static_text" value="5" />
+            <enum name="credit_card" value="6" />
+            <enum name="date_mm_yyyy" value="7" />
         </attr>
         <attr name="maskPattern" format="string" />
         <attr name="returnPattern" format="string" />

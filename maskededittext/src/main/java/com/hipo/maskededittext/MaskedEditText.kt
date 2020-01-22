@@ -11,6 +11,9 @@ import android.view.inputmethod.InputConnection
 import androidx.appcompat.widget.AppCompatEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.hipo.maskededittext.Masker.Companion.POUND
+import com.hipo.maskededittext.masks.CustomMask
+import com.hipo.maskededittext.masks.StaticTextMask
+import com.hipo.maskededittext.masks.UnselectedMask
 import kotlin.properties.Delegates
 
 class MaskedEditText : AppCompatEditText {

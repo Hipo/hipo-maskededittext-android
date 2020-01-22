@@ -13,11 +13,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/phoneTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -49,15 +44,15 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Credit card">
+            android:hint="Custom">
 
             <com.hipo.maskededittext.MaskedEditText
-                android:id="@+id/creditCardEditText"
+                android:id="@+id/customEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:maskPattern="####-####-####-####"
+                app:maskPattern="#-#-#"
                 app:maskType="custom"
-                app:returnPattern="################" />
+                app:returnPattern="###" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -86,6 +81,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:maskType="ssn" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Credit Card">
+
+            <com.hipo.maskededittext.MaskedEditText
+                android:id="@+id/creditCardEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:maskType="credit_card" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Date MM / YYYY">
+
+            <com.hipo.maskededittext.MaskedEditText
+                android:id="@+id/dateMmYyyyEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:maskType="date_mm_yyyy" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
