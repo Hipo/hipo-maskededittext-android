@@ -1,5 +1,6 @@
-package com.hipo.maskededittext
+package com.hipo.maskededittext.masks
 
+import com.hipo.maskededittext.Mask
 import com.hipo.maskededittext.Masker.Companion.POUND
 
 class CustomMask(private val customMaskPattern: String, private val customReturnPattern: String) :
@@ -10,8 +11,7 @@ class CustomMask(private val customMaskPattern: String, private val customReturn
         get() = customReturnPattern
 
     override fun getParsedText(maskedText: String): String? {
-        val filteredText = filterMaskedText(maskedText)
-        return if (isValidToParse(maskedText)) filteredText else null
+        return filterMaskedText(maskedText).takeIf { isValidToParse(maskedText) }
     }
 
     override fun isValidToParse(maskedText: String): Boolean {
