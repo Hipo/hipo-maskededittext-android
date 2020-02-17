@@ -1,7 +1,7 @@
 package com.hipo.maskededittext.masks
 
 import com.hipo.maskededittext.Mask
-import com.hipo.maskededittext.Masker.Companion.POUND
+import com.hipo.maskededittext.maskers.Masker.Companion.POUND
 
 class CustomMask(private val customMaskPattern: String, private val customReturnPattern: String) :
     Mask() {

@@ -1,11 +1,16 @@
-package com.hipo.maskededittext
+package com.hipo.maskededittext.maskers
 
+import android.text.InputType
+import com.hipo.maskededittext.Mask
 import kotlin.properties.Delegates
 
 class Masker(
     override val mask: Mask,
     override val onTextMaskedListener: (String) -> Unit
 ) : BaseMasker {
+
+    override val inputType: Int
+        get() = InputType.TYPE_CLASS_NUMBER
 
     private var text: String by Delegates.observable("") { _, _, newValue ->
         onTextMaskedListener(newValue)

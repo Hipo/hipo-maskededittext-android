@@ -2,7 +2,7 @@ package com.hipo.maskededittext
 
 import android.content.Context
 import android.text.Editable
-import android.text.InputType
+import android.text.InputType.TYPE_CLASS_NUMBER
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.View
@@ -10,7 +10,12 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
 import androidx.appcompat.widget.AppCompatEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.hipo.maskededittext.Masker.Companion.POUND
+import com.hipo.maskededittext.maskers.BaseMasker
+import com.hipo.maskededittext.maskers.CurrencyMasker
+import com.hipo.maskededittext.maskers.Masker
+import com.hipo.maskededittext.maskers.Masker.Companion.POUND
+import com.hipo.maskededittext.maskers.StaticTextMasker
+import com.hipo.maskededittext.masks.CurrencyMask
 import com.hipo.maskededittext.masks.CustomMask
 import com.hipo.maskededittext.masks.StaticTextMask
 import com.hipo.maskededittext.masks.UnselectedMask
@@ -63,6 +68,7 @@ class MaskedEditText : AppCompatEditText {
         masker = when (mask) {
             is CustomMask -> handleCustomMask(mask)
             is StaticTextMask -> handleStaticTextMask(mask)
+            is CurrencyMask -> CurrencyMasker(mask, ::setEditTextWithoutTriggerListener)
             else -> Masker(mask, ::setEditTextWithoutTriggerListener)
         }
     }
@@ -105,7 +111,6 @@ class MaskedEditText : AppCompatEditText {
 
     private fun initMaskedEditText() {
         initTextWatcher()
-        inputType = InputType.TYPE_CLASS_NUMBER
     }
 
     private fun initAttributes(attrs: AttributeSet, defStyle: Int = -1) {
@@ -116,6 +121,7 @@ class MaskedEditText : AppCompatEditText {
                     getInt(R.styleable.MaskedEditText_maskType, Mask.Type.UNSELECTED.ordinal)
             ].create(maskPattern, returnMaskPattern)
         }
+        inputType = masker?.inputType ?: TYPE_CLASS_NUMBER
     }
 
     private fun initTextWatcher() {
