@@ -1,6 +1,8 @@
 # Masked Edit Text
 
-```implementation 'com.hipo.maskededittext:maskededittext:1.0.0'```
+![Bintray](https://img.shields.io/bintray/v/hipo/MaskedEditText/com.hipo.maskededittext)
+
+```implementation 'com.hipo.maskededittext:maskededittext:$latestVersion'```
 
 Simple Phone, Date and SSN masker.
 
