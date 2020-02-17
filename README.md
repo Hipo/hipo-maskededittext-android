@@ -8,7 +8,7 @@ There are 4 options;
 * Phone -> (###) ###-####
 * Date -> ####/##/##
 * SSN -> ###-##-####
-* Currency -> $######## !!! Deprecated, Use StaticText instead !!!
+* Currency -> {yourMaskPattern}##,###,###.## - Example: $123,141.20
 * Static Text -> $... - Now you can set static text
 * Custom -> However you want it to be!
 
