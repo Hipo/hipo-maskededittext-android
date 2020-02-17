@@ -101,12 +101,12 @@ class MaskedEditText : AppCompatEditText {
 
     private fun setEditTextWithoutTriggerListener(newText: String) {
         removeTextChangedListener(textWatcher)
-        onTextChangedListener?.invoke(newText)
         setText(newText)
         setSelection(text?.length ?: 0)
         textWatcher?.let { textWatcher ->
             addTextChangedListener(textWatcher)
         }
+        onTextChangedListener?.invoke(newText)
     }
 
     private fun initMaskedEditText() {
