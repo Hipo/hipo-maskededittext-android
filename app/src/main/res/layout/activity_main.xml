@@ -16,6 +16,20 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Currency">
+
+            <com.hipo.maskededittext.MaskedEditText
+                android:id="@+id/currencyEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:maskType="currency"
+                app:maskPattern="$"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:hint="Phone">
 
             <com.hipo.maskededittext.MaskedEditText
@@ -29,7 +43,6 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:hint="Date">
 
             <com.hipo.maskededittext.MaskedEditText

@@ -26,7 +26,7 @@ abstract class Mask {
         },
         CURRENCY {
             override fun create(maskPattern: String?, returnPattern: String?): Mask =
-                CurrencyMask()
+                CurrencyMask(maskPattern.orEmpty())
         },
         CUSTOM {
             override fun create(maskPattern: String?, returnPattern: String?): Mask =
