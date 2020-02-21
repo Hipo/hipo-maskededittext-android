@@ -23,7 +23,7 @@ class DateMask : Mask() {
         return try {
             with(SimpleDateFormat(INPUT_DATE_FORMAT)) {
                 isLenient = false
-                parse(maskedText) != null
+                parse(maskedText) != null && maskedText.length == maskPattern.length
             }
         } catch (parseException: ParseException) {
             false
