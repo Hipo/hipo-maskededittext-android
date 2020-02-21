@@ -1,6 +1,8 @@
 package com.hipo.maskededittext.masks
 
 import com.hipo.maskededittext.Mask
+import java.text.ParseException
+import java.text.SimpleDateFormat
 
 class DateMask : Mask() {
     override val maskPattern: String
@@ -11,16 +13,21 @@ class DateMask : Mask() {
 
     override fun getParsedText(maskedText: String): String? {
         return if (isValidToParse(maskedText)) {
-            with(filterMaskedText(maskedText)) {
-                "${substring(YEAR_INDICES)}-${substring(MONTH_INDICES)}-${substring(DAY_INDICES)}"
-            }
+            SimpleDateFormat(OUTPUT_DATE_FORMAT).format(SimpleDateFormat(INPUT_DATE_FORMAT).parse(maskedText))
         } else {
             null
         }
     }
 
     override fun isValidToParse(maskedText: String): Boolean {
-        return maskedText.length == maskPattern.length
+        return try {
+            with(SimpleDateFormat(INPUT_DATE_FORMAT)) {
+                isLenient = false
+                parse(maskedText) != null
+            }
+        } catch (parseException: ParseException) {
+            false
+        }
     }
 
     override fun filterMaskedText(maskedText: String): String {
@@ -28,8 +35,7 @@ class DateMask : Mask() {
     }
 
     companion object {
-        private val MONTH_INDICES = 0..1
-        private val DAY_INDICES = 2..3
-        private val YEAR_INDICES = 4..7
+        private const val INPUT_DATE_FORMAT = "MM / dd / yyyy"
+        private const val OUTPUT_DATE_FORMAT = "yyyy-MM-dd"
     }
 }
