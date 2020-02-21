@@ -28,8 +28,8 @@ class DateMask : Mask() {
     }
 
     companion object {
-        private val MONTH_INDICES = 2..3
-        private val DAY_INDICES = 0..1
+        private val MONTH_INDICES = 0..1
+        private val DAY_INDICES = 2..3
         private val YEAR_INDICES = 4..7
     }
 }
