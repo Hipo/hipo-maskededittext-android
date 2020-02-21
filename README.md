@@ -4,6 +4,8 @@
 
 ```implementation 'com.hipo.maskededittext:maskededittext:$latestVersion'```
 
+### To release new version, please check VERSION_GUIDE
+
 Simple Phone, Date and SSN masker.
 
 There are 4 options;

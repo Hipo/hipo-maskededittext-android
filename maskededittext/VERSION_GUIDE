@@ -1,0 +1,28 @@
+To get new release, please follow the steps below;
+
+- Update library versions. Increase both versions;
+
+    Path:   maskededittext/build.gradle
+                -> versionName & libraryVersion
+
+
+- Update/Add username and api key in local.properties.
+    You should be added as contributor on bintray repo to push new version successfully.
+    Otherwise it returns 401;
+
+    Path:   projectFolder/local.properties
+                ->bintray.user=[YOUR_BINTRAY_USERNAME]
+                ->bintray.apikey=[YOUR_BINTRAY_APIKEY]
+
+            Example;
+            bintray.user=myusername
+            bintray.apikey=myapikey2183121
+
+
+- Call below 2 commands on terminal in the following order;
+    - ./gradlew install
+    - ./gradlew bintrayUpload
+
+Then you can update your implementation version in a minute.
+Gradle doesn't suggest you [by highlighting implementation line] to update your version immediately
+but as soon as bintray shows your latest version, you can update your implementation version.
