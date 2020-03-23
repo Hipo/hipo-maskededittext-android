@@ -61,6 +61,11 @@ class MaskedEditText : AppCompatEditText {
 
     fun isValid() = maskType.isValidToParse(text.toString())
 
+    fun setCurrencyText(currency: String) {
+        // TODO this is a quick fix, create a generic setter that works with every masker
+        masker.takeIf { it is CurrencyMasker }?.onTextChanged(currency, 0, currency.length, 0)
+    }
+
     private fun setMasker(mask: Mask) {
         if (mask is UnselectedMask) {
             throw Exception("${LOG_TAG}: ${context.getString(R.string.exception_unselected_mask)}")
