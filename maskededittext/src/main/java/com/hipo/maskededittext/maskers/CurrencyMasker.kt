@@ -1,11 +1,13 @@
 package com.hipo.maskededittext.maskers
 
-import android.text.InputType.*
+import android.text.InputType.TYPE_CLASS_NUMBER
+import android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL
+import android.text.InputType.TYPE_NUMBER_FLAG_SIGNED
 import com.hipo.maskededittext.Mask
-import java.text.DecimalFormat
+import java.text.NumberFormat
+import java.util.Locale
 
-class CurrencyMasker(override val mask: Mask, override val onTextMaskedListener: (String) -> Unit) :
-    BaseMasker {
+class CurrencyMasker(override val mask: Mask, override val onTextMaskedListener: (String) -> Unit) : BaseMasker {
 
     override val inputType: Int
         get() = TYPE_CLASS_NUMBER or TYPE_NUMBER_FLAG_DECIMAL or TYPE_NUMBER_FLAG_SIGNED
@@ -23,14 +25,20 @@ class CurrencyMasker(override val mask: Mask, override val onTextMaskedListener:
         if (numList.first().isEmpty()) {
             numList[0] = "0"
         }
-        var formattedText = DecimalFormat("${mask.maskPattern}#,##0").format(numList.first().toDouble())
+        val formattedTextBuilder = StringBuilder(mask.maskPattern)
+            .append(NumberFormat.getNumberInstance(Locale.US).format(numList.first().toFloat()))
         if (numList.size > 1) {
-            formattedText += ".${numList[1].substring(0, if (numList[1].length < 3) numList[1].length else 2)}"
+            formattedTextBuilder.append(POINT)
+                .append(numList[1].substring(0, if (numList[1].length < 3) numList[1].length else 2))
         }
-        onTextMaskedListener(formattedText)
+        onTextMaskedListener(formattedTextBuilder.toString())
     }
 
     override fun getTextWithReturnPattern(): String? {
         return null
+    }
+
+    companion object {
+        private const val POINT = "."
     }
 }
