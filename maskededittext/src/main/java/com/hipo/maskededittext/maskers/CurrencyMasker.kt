@@ -7,7 +7,11 @@ import com.hipo.maskededittext.Mask
 import java.text.NumberFormat
 import java.util.Locale
 
-class CurrencyMasker(override val mask: Mask, override val onTextMaskedListener: (String) -> Unit) : BaseMasker {
+class CurrencyMasker(
+    override val mask: Mask,
+    override val onTextMaskedListener: (String) -> Unit,
+    private val currencyDecimalLimit: Int
+) : BaseMasker {
 
     override val inputType: Int
         get() = TYPE_CLASS_NUMBER or TYPE_NUMBER_FLAG_DECIMAL or TYPE_NUMBER_FLAG_SIGNED
@@ -25,11 +29,17 @@ class CurrencyMasker(override val mask: Mask, override val onTextMaskedListener:
         if (numList.first().isEmpty()) {
             numList[0] = "0"
         }
-        val formattedTextBuilder = StringBuilder(mask.maskPattern)
-            .append(NumberFormat.getNumberInstance(Locale.US).format(numList.first().toFloat()))
-        if (numList.size > 1) {
-            formattedTextBuilder.append(POINT)
-                .append(numList[1].substring(0, if (numList[1].length < 3) numList[1].length else 2))
+
+        val formattedTextBuilder = StringBuilder(mask.maskPattern).apply {
+            append(NumberFormat.getNumberInstance(Locale.US).format(numList.first().toFloat()))
+            if (numList.size > 1) {
+                append(POINT)
+                if (currencyDecimalLimit == NO_DECIMAL_LIMIT) {
+                    append(numList[1])
+                } else {
+                    append(getLimitedDecimalString(numList[1]))
+                }
+            }
         }
         onTextMaskedListener(formattedTextBuilder.toString())
     }
@@ -38,7 +48,21 @@ class CurrencyMasker(override val mask: Mask, override val onTextMaskedListener:
         return null
     }
 
+    private fun getLimitedDecimalString(decimalString: String): String {
+        return with(decimalString) {
+            substring(0, if (length <= currencyDecimalLimit) length else currencyDecimalLimit)
+        }
+    }
+
     companion object {
+        const val DEFAULT_DECIMAL_LIMIT = 2
+        const val NO_DECIMAL_LIMIT = -1
         private const val POINT = "."
+
+        fun checkIfLimitSafe(currencyDecimalLimit: Int) {
+            if (currencyDecimalLimit < NO_DECIMAL_LIMIT) {
+                throw IllegalArgumentException("currencyDecimalLimit must be equal or bigger than -1")
+            }
+        }
     }
 }
