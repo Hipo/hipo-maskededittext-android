@@ -14,6 +14,7 @@
         </attr>
         <attr name="maskPattern" format="string" />
         <attr name="returnPattern" format="string" />
+        <attr name="currencyDecimalLimit" format="integer" />
     </declare-styleable>
 
 </resources>

@@ -12,6 +12,7 @@ import androidx.appcompat.widget.AppCompatEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.hipo.maskededittext.maskers.BaseMasker
 import com.hipo.maskededittext.maskers.CurrencyMasker
+import com.hipo.maskededittext.maskers.CurrencyMasker.Companion.DEFAULT_DECIMAL_LIMIT
 import com.hipo.maskededittext.maskers.Masker
 import com.hipo.maskededittext.maskers.Masker.Companion.POUND
 import com.hipo.maskededittext.maskers.StaticTextMasker
@@ -37,6 +38,7 @@ class MaskedEditText : AppCompatEditText {
     private var maskPattern: String = ""
     private var returnMaskPattern: String = ""
     private var masker: BaseMasker? = null
+    private var currencyDecimalLimit = DEFAULT_DECIMAL_LIMIT
     private var maskType: Mask by Delegates.observable<Mask>(UnselectedMask()) { _, _, newValue ->
         setMasker(newValue)
     }
@@ -73,7 +75,7 @@ class MaskedEditText : AppCompatEditText {
         masker = when (mask) {
             is CustomMask -> handleCustomMask(mask)
             is StaticTextMask -> handleStaticTextMask(mask)
-            is CurrencyMask -> CurrencyMasker(mask, ::setEditTextWithoutTriggerListener)
+            is CurrencyMask -> CurrencyMasker(mask, ::setEditTextWithoutTriggerListener, currencyDecimalLimit)
             else -> Masker(mask, ::setEditTextWithoutTriggerListener)
         }
     }
@@ -122,6 +124,8 @@ class MaskedEditText : AppCompatEditText {
         with(context.obtainStyledAttributes(attrs, R.styleable.MaskedEditText, defStyle, 0)) {
             maskPattern = getString(R.styleable.MaskedEditText_maskPattern).orEmpty()
             returnMaskPattern = getString(R.styleable.MaskedEditText_returnPattern).orEmpty()
+            currencyDecimalLimit = getInteger(R.styleable.MaskedEditText_currencyDecimalLimit, DEFAULT_DECIMAL_LIMIT)
+                .also { decimalLimit -> CurrencyMasker.checkIfLimitSafe(decimalLimit) }
             maskType = Mask.Type.values()[
                     getInt(R.styleable.MaskedEditText_maskType, Mask.Type.UNSELECTED.ordinal)
             ].create(maskPattern, returnMaskPattern)
